@@ -1,0 +1,41 @@
+body {
+	font-family: sans-serif;
+	text-align: center;
+  }
+  
+  .grid {
+	display: grid;
+	width: 500px;
+	height: 500px;
+	margin: 20px auto;
+	border: 2px solid #000;
+  }
+  
+  .cell {
+	border: 1px solid #ddd;
+	background-color: white;
+  }
+  
+  .cell.wall {
+	background-color: black;
+  }
+  
+  .cell.start {
+	background-color: red;
+  }
+  
+  .cell.end {
+	background-color: gold;
+  }
+  
+  .cell.visited {
+	background-color: lightblue;
+  }
+  
+  .cell.path {
+	background-color: limegreen;
+  }
+  
+  .controls {
+	margin-top: 20px;
+  }
