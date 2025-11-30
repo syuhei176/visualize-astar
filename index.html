@@ -1,17 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <title>A* Pathfinding Visualizer</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <h1>A* アルゴリズム 可視化</h1>
-  <div id="grid" class="grid"></div>
-  <div class="controls">
-    <button id="startBtn">探索開始</button>
-    <button id="resetBtn">リセット</button>
-  </div>
-  <script src="main.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>A* Pathfinding Visualizer</title>
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <h1>経路探索アルゴリズム 可視化</h1>
+        <div class="controls">
+            <label for="algorithm">アルゴリズム: </label>
+            <select id="algorithm">
+                <option value="astar">A* (A-Star)</option>
+                <option value="dijkstra">Dijkstra法</option>
+                <option value="bfs">幅優先探索 (BFS)</option>
+                <option value="dfs">深さ優先探索 (DFS)</option>
+                <option value="greedy">貪欲法 (Greedy Best-First)</option>
+            </select>
+            <button id="startBtn">探索開始</button>
+            <button id="resetBtn">リセット</button>
+            <button id="clearPathBtn">パスのみクリア</button>
+        </div>
+        <div id="grid" class="grid"></div>
+        <div class="info">
+            <p>クリックして開始点、終了点、壁を設定してください</p>
+            <p id="stats"></p>
+        </div>
+        <script src="main.js"></script>
+    </body>
 </html>
