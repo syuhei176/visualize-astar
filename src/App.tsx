@@ -1,22 +1,29 @@
-import { useState } from 'react'
-import PathfindingVisualizer from './visualizers/PathfindingVisualizer'
-import SortingVisualizer from './visualizers/SortingVisualizer'
-import './App.css'
+import { useState } from "react";
+import PathfindingVisualizer from "./visualizers/PathfindingVisualizer";
+import SortingVisualizer from "./visualizers/SortingVisualizer";
+import { Category } from "./types";
+import "./App.css";
 
-const CATEGORIES = [
-  { id: 'pathfinding', name: '経路探索アルゴリズム', component: PathfindingVisualizer },
-  { id: 'sorting', name: 'ソートアルゴリズム', component: SortingVisualizer },
-]
+const CATEGORIES: Category[] = [
+  {
+    id: "pathfinding",
+    name: "経路探索アルゴリズム",
+    component: PathfindingVisualizer,
+  },
+  { id: "sorting", name: "ソートアルゴリズム", component: SortingVisualizer },
+];
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null,
+  );
 
   if (!selectedCategory) {
     return (
       <div className="app">
         <h1>アルゴリズム可視化ツール</h1>
         <div className="category-grid">
-          {CATEGORIES.map(category => (
+          {CATEGORIES.map((category) => (
             <button
               key={category.id}
               className="category-card"
@@ -27,10 +34,10 @@ function App() {
           ))}
         </div>
       </div>
-    )
+    );
   }
 
-  const VisualizerComponent = selectedCategory.component
+  const VisualizerComponent = selectedCategory.component;
 
   return (
     <div className="app">
@@ -45,7 +52,7 @@ function App() {
       </div>
       <VisualizerComponent />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
