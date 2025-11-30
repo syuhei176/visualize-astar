@@ -1,0 +1,149 @@
+.pathfinding-visualizer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.controls {
+  padding: 15px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.controls label {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.controls select {
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.controls button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: white;
+}
+
+.controls button:nth-of-type(1) {
+  background-color: #4caf50;
+}
+
+.controls button:nth-of-type(1):hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.controls button:nth-of-type(2) {
+  background-color: #f44336;
+}
+
+.controls button:nth-of-type(2):hover:not(:disabled) {
+  background-color: #da190b;
+}
+
+.controls button:nth-of-type(3) {
+  background-color: #2196f3;
+}
+
+.controls button:nth-of-type(3):hover:not(:disabled) {
+  background-color: #0b7dda;
+}
+
+.controls button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.grid {
+  display: grid;
+  width: 600px;
+  height: 600px;
+  border: 2px solid #333;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cell {
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cell:hover {
+  opacity: 0.8;
+}
+
+.cell.wall {
+  background-color: #333;
+}
+
+.cell.start {
+  background-color: #ff5252;
+}
+
+.cell.end {
+  background-color: #ffd700;
+}
+
+.cell.visited {
+  background-color: #81d4fa;
+  animation: fadeIn 0.3s;
+}
+
+.cell.path {
+  background-color: #66bb6a;
+  animation: pathAnimation 0.3s;
+}
+
+.info {
+  padding: 15px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.info p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.stats {
+  font-weight: bold;
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pathAnimation {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
