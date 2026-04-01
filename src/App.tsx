@@ -4,6 +4,7 @@ import SortingVisualizer from "./visualizers/SortingVisualizer";
 import PythagoreanVisualizer from "./visualizers/PythagoreanVisualizer";
 import AdditionTheoremVisualizer from "./visualizers/AdditionTheoremVisualizer";
 import RsaVisualizer from "./visualizers/RsaVisualizer";
+import AbcConjectureVisualizer from "./visualizers/AbcConjectureVisualizer";
 import "./App.css";
 
 const CATEGORIES = [
@@ -16,6 +17,7 @@ const MATH_TOPICS = [
   { id: "pythagorean", name: "三平方の定理" },
   { id: "addition-theorem", name: "加法定理" },
   { id: "rsa", name: "RSA暗号" },
+  { id: "abc-conjecture", name: "ABC予想" },
 ];
 
 function Home() {
@@ -112,6 +114,7 @@ function App() {
       <Route path="/math/pythagorean" element={<MathPage component={PythagoreanVisualizer} />} />
       <Route path="/math/addition-theorem" element={<MathPage component={AdditionTheoremVisualizer} />} />
       <Route path="/math/rsa" element={<MathPage component={RsaVisualizer} />} />
+      <Route path="/math/abc-conjecture" element={<MathPage component={AbcConjectureVisualizer} />} />
     </Routes>
   );
 }
