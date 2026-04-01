@@ -1,10 +1,22 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { SORTING_ALGORITHMS } from "../algorithms/sorting";
+import { HighlightRole, StepInfo } from "../types";
 import "./SortingVisualizer.css";
 
 const ARRAY_SIZE = 50;
 const MAX_VALUE = 100;
+
+const LEGEND_ITEMS: { role: string; label: string; className: string }[] = [
+  { role: "comparing", label: "比較中", className: "comparing" },
+  { role: "swapping", label: "交換", className: "swapping" },
+  { role: "pivot", label: "ピボット", className: "highlight-pivot" },
+  { role: "range", label: "処理範囲", className: "highlight-range" },
+  { role: "minimum", label: "最小値", className: "highlight-minimum" },
+  { role: "key", label: "キー", className: "highlight-key" },
+  { role: "heap-root", label: "ヒープルート", className: "highlight-heap-root" },
+  { role: "merged", label: "マージ中", className: "highlight-merged" },
+];
 
 function SortingVisualizer() {
   const { algorithm: algorithmParam } = useParams<{ algorithm: string }>();
@@ -16,8 +28,10 @@ function SortingVisualizer() {
   const [speed, setSpeed] = useState<number>(50);
   const [comparisons, setComparisons] = useState<number>(0);
   const [swaps, setSwaps] = useState<number>(0);
+  const [currentStep, setCurrentStep] = useState<string>("");
   const comparingIndicesRef = useRef<number[]>([]);
   const swappingIndicesRef = useRef<number[]>([]);
+  const highlightsRef = useRef<Map<number, HighlightRole>>(new Map());
 
   useEffect(() => {
     generateArray();
@@ -31,8 +45,10 @@ function SortingVisualizer() {
     setArray(newArray);
     setComparisons(0);
     setSwaps(0);
+    setCurrentStep("");
     comparingIndicesRef.current = [];
     swappingIndicesRef.current = [];
+    highlightsRef.current = new Map();
   };
 
   const sleep = (ms: number) =>
@@ -41,7 +57,7 @@ function SortingVisualizer() {
   const handleCompare = async (i: number, j: number) => {
     comparingIndicesRef.current = [i, j];
     setComparisons((prev) => prev + 1);
-    setArray((prev) => [...prev]); // 再レンダリング用
+    setArray((prev) => [...prev]);
     await sleep(101 - speed);
     comparingIndicesRef.current = [];
   };
@@ -54,16 +70,27 @@ function SortingVisualizer() {
     swappingIndicesRef.current = [];
   };
 
+  const handleStep = async (step: StepInfo) => {
+    setCurrentStep(step.description);
+    highlightsRef.current = step.highlights;
+    setArray((prev) => [...prev]);
+    await sleep(101 - speed);
+  };
+
   const runSort = async () => {
     if (isRunning) return;
     setIsRunning(true);
     setComparisons(0);
     setSwaps(0);
+    setCurrentStep("");
+    highlightsRef.current = new Map();
 
     const algorithmFn = SORTING_ALGORITHMS[algorithm].fn;
-    await algorithmFn(array, handleSwap, handleCompare);
+    await algorithmFn(array, handleSwap, handleCompare, undefined, handleStep);
 
     // 完了アニメーション
+    setCurrentStep("ソート完了!");
+    highlightsRef.current = new Map();
     for (let i = 0; i < array.length; i++) {
       swappingIndicesRef.current = [i];
       setArray((prev) => [...prev]);
@@ -77,6 +104,10 @@ function SortingVisualizer() {
 
   const getBarClass = (index: number): string => {
     const classes = ["bar"];
+    const highlight = highlightsRef.current.get(index);
+    if (highlight) {
+      classes.push(`highlight-${highlight}`);
+    }
     if (comparingIndicesRef.current.includes(index)) {
       classes.push("comparing");
     }
@@ -125,6 +156,12 @@ function SortingVisualizer() {
         </button>
       </div>
 
+      <div className="step-info">
+        <p className="step-description">
+          {currentStep || "ソート開始を押すとステップが表示されます"}
+        </p>
+      </div>
+
       <div className="array-container">
         {array.map((value, index) => (
           <div
@@ -136,6 +173,15 @@ function SortingVisualizer() {
             }}
           >
             <span className="bar-value">{value}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="legend">
+        {LEGEND_ITEMS.map((item) => (
+          <div key={item.role} className="legend-item">
+            <div className={`legend-swatch bar ${item.className}`} />
+            <span>{item.label}</span>
           </div>
         ))}
       </div>

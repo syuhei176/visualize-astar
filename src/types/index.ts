@@ -51,11 +51,21 @@ export interface PathfindingAlgorithms {
 }
 
 // ソート用の型定義
+export type HighlightRole = "pivot" | "range" | "minimum" | "key" | "heap-root" | "merged"
+
+export interface StepInfo {
+  description: string
+  highlights: Map<number, HighlightRole>
+}
+
+export type OnStepCallback = (step: StepInfo) => Promise<void>
+
 export type SortingAlgorithm = (
   array: number[],
   onSwap?: (array: number[], i: number, j: number) => Promise<void>,
   onCompare?: (i: number, j: number) => Promise<void>,
   onSorted?: (indices: number[]) => void,
+  onStep?: OnStepCallback,
 ) => Promise<number[]>
 
 export interface SortingAlgorithmInfo {
