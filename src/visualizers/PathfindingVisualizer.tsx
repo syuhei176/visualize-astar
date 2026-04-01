@@ -10,7 +10,9 @@ const COLS = 20;
 function PathfindingVisualizer() {
   const { algorithm: algorithmParam } = useParams<{ algorithm: string }>();
   const navigate = useNavigate();
-  const algorithm = algorithmParam && algorithmParam in ALGORITHMS ? algorithmParam : "astar";
+  const algorithm =
+    algorithmParam && algorithmParam in ALGORITHMS ? algorithmParam : "astar";
+  const algorithmName = ALGORITHMS[algorithm].name;
 
   const [grid, setGrid] = useState<Grid>([]);
   const [startNode, setStartNode] = useState<Node | null>(null);
@@ -21,7 +23,6 @@ function PathfindingVisualizer() {
   const visitedNodesRef = useRef<Set<string>>(new Set());
   const pathNodesRef = useRef<Set<string>>(new Set());
 
-  // グリッド初期化
   useEffect(() => {
     initializeGrid();
   }, []);
@@ -32,7 +33,6 @@ function PathfindingVisualizer() {
       newGrid[y] = [];
       for (let x = 0; x < COLS; x++) {
         const node = new Node(x, y);
-        // ランダムに壁を設置（約25%の確率）
         if (Math.random() < 0.25) {
           node.isWall = true;
         }
@@ -71,7 +71,7 @@ function PathfindingVisualizer() {
     if (node !== startNode && node !== endNode) {
       visitedNodesRef.current.add(`${node.x},${node.y}`);
       setVisitedCount((prev) => prev + 1);
-      setGrid((prev) => [...prev]); // 再レンダリング用
+      setGrid((prev) => [...prev]);
       await sleep(25);
     }
   };
@@ -80,7 +80,7 @@ function PathfindingVisualizer() {
     for (const node of path.reverse()) {
       if (node !== startNode && node !== endNode) {
         pathNodesRef.current.add(`${node.x},${node.y}`);
-        setGrid((prev) => [...prev]); // 再レンダリング用
+        setGrid((prev) => [...prev]);
         await sleep(30);
       }
     }
@@ -96,7 +96,6 @@ function PathfindingVisualizer() {
     if (isRunning) return;
     setIsRunning(true);
 
-    // リセット
     visitedNodesRef.current.clear();
     pathNodesRef.current.clear();
     setVisitedCount(0);
@@ -145,54 +144,65 @@ function PathfindingVisualizer() {
 
   return (
     <div className="pathfinding-visualizer">
-      <div className="controls">
-        <label>
-          アルゴリズム:
-          <select
-            value={algorithm}
-            onChange={(e) => navigate(`/pathfinding/${e.target.value}`)}
-          >
-            {Object.entries(ALGORITHMS).map(([key, { name }]) => (
-              <option key={key} value={key}>
-                {name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button onClick={runAlgorithm} disabled={isRunning}>
-          探索開始
-        </button>
-        <button onClick={initializeGrid} disabled={isRunning}>
-          リセット
-        </button>
-        <button onClick={clearPath} disabled={isRunning}>
-          パスのみクリア
-        </button>
+      <div className="algo-title">
+        <h2>{algorithmName}</h2>
+        <p className="algo-subtitle">Pathfinding Algorithm</p>
       </div>
 
-      <div
-        className="grid"
-        style={{
-          gridTemplateColumns: `repeat(${COLS}, 1fr)`,
-          gridTemplateRows: `repeat(${ROWS}, 1fr)`,
-        }}
-      >
-        {grid.map((row, y) =>
-          row.map((node, x) => (
-            <div
-              key={`${x}-${y}`}
-              className={getCellClass(node)}
-              onClick={() => handleCellClick(x, y)}
-            />
-          )),
-        )}
+      <div className="grid-wrapper">
+        <div
+          className="grid"
+          style={{
+            gridTemplateColumns: `repeat(${COLS}, 1fr)`,
+            gridTemplateRows: `repeat(${ROWS}, 1fr)`,
+          }}
+        >
+          {grid.map((row, y) =>
+            row.map((node, x) => (
+              <div
+                key={`${x}-${y}`}
+                className={getCellClass(node)}
+                onClick={() => handleCellClick(x, y)}
+              />
+            )),
+          )}
+        </div>
       </div>
 
-      <div className="info">
-        <p>クリックして開始点、終了点、壁を設定してください</p>
-        <p className="stats">
-          訪問ノード数: {visitedCount} | パスの長さ: {pathLength}
-        </p>
+      <div className="bottom-info">
+        <div className="stats-row">
+          <div className="stat-item">
+            <span className="stat-value">{visitedCount}</span>
+            <span className="stat-label">訪問</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-value">{pathLength}</span>
+            <span className="stat-label">パス長</span>
+          </div>
+        </div>
+        <p className="info-text">タップ: 開始点 → 終了点 → 壁の切替</p>
+      </div>
+
+      <div className="controls-bar">
+        <select
+          value={algorithm}
+          onChange={(e) => navigate(`/pathfinding/${e.target.value}`)}
+        >
+          {Object.entries(ALGORITHMS).map(([key, { name }]) => (
+            <option key={key} value={key}>
+              {name}
+            </option>
+          ))}
+        </select>
+        <button className="btn-start" onClick={runAlgorithm} disabled={isRunning}>
+          Start
+        </button>
+        <button className="btn-reset" onClick={initializeGrid} disabled={isRunning}>
+          Reset
+        </button>
+        <button className="btn-clear" onClick={clearPath} disabled={isRunning}>
+          Clear
+        </button>
       </div>
     </div>
   );

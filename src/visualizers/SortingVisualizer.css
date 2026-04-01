@@ -1,100 +1,69 @@
 .sorting-visualizer {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #0a0a0a;
+  position: relative;
 }
 
-.controls {
-  padding: 15px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
+/* アルゴリズム名 ヒーロー表示 */
+.algo-title {
+  text-align: center;
+  padding: 56px 16px 8px;
 }
 
-.controls label {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.algo-title h2 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
 }
 
-.controls select {
-  padding: 8px 12px;
-  border: 2px solid #ddd;
-  border-radius: 4px;
+.algo-title .algo-subtitle {
+  margin: 4px 0 0;
   font-size: 14px;
-  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
 }
 
-.controls input[type="range"] {
-  width: 150px;
+/* ステップ表示 */
+.step-info {
+  padding: 12px 20px;
+  text-align: center;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.controls button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s;
-  color: white;
+.step-description {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4fc3f7;
+  line-height: 1.4;
 }
 
-.controls button:nth-of-type(1) {
-  background-color: #4caf50;
-}
-
-.controls button:nth-of-type(1):hover:not(:disabled) {
-  background-color: #45a049;
-}
-
-.controls button:nth-of-type(2) {
-  background-color: #2196f3;
-}
-
-.controls button:nth-of-type(2):hover:not(:disabled) {
-  background-color: #0b7dda;
-}
-
-.controls button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
+/* バー表示エリア */
 .array-container {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  width: 90%;
-  max-width: 1000px;
-  height: 400px;
-  background-color: white;
-  border: 2px solid #333;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  gap: 2px;
+  padding: 0 12px;
+  gap: 1px;
+  height: 50vh;
 }
 
 .bar {
-  background-color: #2196f3;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  transition: background-color 0.3s;
+  background-color: #42a5f5;
+  border-radius: 2px 2px 0 0;
+  transition: background-color 0.15s;
   position: relative;
 }
 
 .bar-value {
-  font-size: 10px;
-  color: white;
-  font-weight: bold;
-  padding: 2px;
   display: none;
 }
 
@@ -103,91 +72,161 @@
 }
 
 .bar.swapping {
-  background-color: #66bb6a;
-}
-
-.step-info {
-  min-height: 48px;
-  padding: 12px 24px;
-  background-color: #263238;
-  color: #fff;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  width: 90%;
-  max-width: 1000px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.step-description {
-  margin: 0;
+  background-color: #69f0ae;
 }
 
 .bar.highlight-pivot {
   background-color: #ff9800;
-  box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
+  box-shadow: 0 0 12px rgba(255, 152, 0, 0.5);
 }
 
 .bar.highlight-range {
-  background-color: #7e57c2;
+  background-color: #7c4dff;
 }
 
 .bar.highlight-minimum {
-  background-color: #e91e63;
+  background-color: #f50057;
+  box-shadow: 0 0 8px rgba(245, 0, 87, 0.4);
 }
 
 .bar.highlight-key {
   background-color: #ffc107;
+  box-shadow: 0 0 8px rgba(255, 193, 7, 0.4);
 }
 
 .bar.highlight-heap-root {
-  background-color: #00bcd4;
+  background-color: #00e5ff;
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
 }
 
 .bar.highlight-merged {
-  background-color: #8bc34a;
+  background-color: #76ff03;
+}
+
+/* 統計 & 凡例 */
+.bottom-info {
+  padding: 16px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  display: block;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  display: block;
 }
 
 .legend {
   display: flex;
-  gap: 16px;
+  gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 8px 0;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 13px;
-  color: #555;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .legend-swatch {
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
 }
 
-.info {
-  padding: 15px;
-  background-color: white;
+/* コントロール（画面下部に固定） */
+.controls-bar {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.controls-bar select {
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  font-size: 13px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px;
 }
 
-.info p {
-  margin: 5px 0;
-  color: #666;
+.controls-bar button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
 }
 
-.stats {
-  font-weight: bold;
-  color: #333;
+.controls-bar .btn-start {
+  background: linear-gradient(135deg, #43a047, #66bb6a);
+}
+
+.controls-bar .btn-start:hover:not(:disabled) {
+  background: linear-gradient(135deg, #388e3c, #4caf50);
+}
+
+.controls-bar .btn-reset {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.controls-bar .btn-reset:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.controls-bar button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.controls-bar .speed-control {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+}
+
+.controls-bar input[type="range"] {
+  width: 60px;
+  accent-color: #42a5f5;
 }

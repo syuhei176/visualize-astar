@@ -13,8 +13,8 @@ const CATEGORIES = [
 
 function Home() {
   return (
-    <div className="app">
-      <h1>アルゴリズム可視化ツール</h1>
+    <div className="app app-home">
+      <h1>アルゴリズム可視化</h1>
       <div className="category-grid">
         {CATEGORIES.map((category) => (
           <Link
@@ -32,12 +32,11 @@ function Home() {
 
 function PathfindingPage() {
   return (
-    <div className="app">
+    <div className="app app-visualizer">
       <div className="header">
         <Link className="back-button" to="/">
           ← 戻る
         </Link>
-        <h1>経路探索アルゴリズム</h1>
       </div>
       <PathfindingVisualizer />
     </div>
@@ -46,12 +45,11 @@ function PathfindingPage() {
 
 function SortingPage() {
   return (
-    <div className="app">
+    <div className="app app-visualizer">
       <div className="header">
         <Link className="back-button" to="/">
           ← 戻る
         </Link>
-        <h1>ソートアルゴリズム</h1>
       </div>
       <SortingVisualizer />
     </div>

@@ -1,87 +1,55 @@
 .pathfinding-visualizer {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #0a0a0a;
+  position: relative;
 }
 
-.controls {
-  padding: 15px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  flex-wrap: wrap;
+.algo-title {
+  text-align: center;
+  padding: 56px 16px 8px;
 }
 
-.controls label {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.algo-title h2 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
 }
 
-.controls select {
-  padding: 8px 12px;
-  border: 2px solid #ddd;
-  border-radius: 4px;
+.algo-title .algo-subtitle {
+  margin: 4px 0 0;
   font-size: 14px;
-  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
 }
 
-.controls button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s;
-  color: white;
-}
-
-.controls button:nth-of-type(1) {
-  background-color: #4caf50;
-}
-
-.controls button:nth-of-type(1):hover:not(:disabled) {
-  background-color: #45a049;
-}
-
-.controls button:nth-of-type(2) {
-  background-color: #f44336;
-}
-
-.controls button:nth-of-type(2):hover:not(:disabled) {
-  background-color: #da190b;
-}
-
-.controls button:nth-of-type(3) {
-  background-color: #2196f3;
-}
-
-.controls button:nth-of-type(3):hover:not(:disabled) {
-  background-color: #0b7dda;
-}
-
-.controls button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.grid-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
 }
 
 .grid {
   display: grid;
-  width: 600px;
-  height: 600px;
-  border: 2px solid #333;
-  background-color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: calc(100vw - 24px);
+  height: calc(100vw - 24px);
+  max-width: 500px;
+  max-height: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #111;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .cell {
-  border: 1px solid #e0e0e0;
-  background-color: white;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: #1a1a1a;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -91,43 +59,135 @@
 }
 
 .cell.wall {
-  background-color: #333;
+  background-color: #37474f;
 }
 
 .cell.start {
   background-color: #ff5252;
+  box-shadow: inset 0 0 4px rgba(255, 82, 82, 0.5);
 }
 
 .cell.end {
-  background-color: #ffd700;
+  background-color: #ffd740;
+  box-shadow: inset 0 0 4px rgba(255, 215, 64, 0.5);
 }
 
 .cell.visited {
-  background-color: #81d4fa;
+  background-color: #1565c0;
   animation: fadeIn 0.3s;
 }
 
 .cell.path {
-  background-color: #66bb6a;
+  background-color: #69f0ae;
   animation: pathAnimation 0.3s;
 }
 
-.info {
-  padding: 15px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.bottom-info {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.stat-item {
   text-align: center;
 }
 
-.info p {
-  margin: 5px 0;
-  color: #666;
+.stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  display: block;
+  line-height: 1;
 }
 
-.stats {
-  font-weight: bold;
-  color: #333;
+.stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  display: block;
+}
+
+.info-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.controls-bar {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.controls-bar select {
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px;
+}
+
+.controls-bar button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
+}
+
+.controls-bar .btn-start {
+  background: linear-gradient(135deg, #43a047, #66bb6a);
+}
+
+.controls-bar .btn-start:hover:not(:disabled) {
+  background: linear-gradient(135deg, #388e3c, #4caf50);
+}
+
+.controls-bar .btn-reset {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.controls-bar .btn-reset:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.controls-bar .btn-clear {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.controls-bar .btn-clear:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.controls-bar button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 @keyframes fadeIn {
