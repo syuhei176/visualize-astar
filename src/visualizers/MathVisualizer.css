@@ -1,0 +1,225 @@
+.math-visualizer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #0a0a0a;
+}
+
+.math-visualizer .algo-title {
+  text-align: center;
+  padding: 56px 16px 8px;
+}
+
+.math-visualizer .algo-title h2 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.math-visualizer .algo-title .algo-subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+}
+
+.math-visualizer .canvas-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.math-visualizer canvas {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.math-visualizer .formula {
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #4fc3f7;
+  font-family: "Courier New", monospace;
+}
+
+.math-visualizer .controls-bar {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.math-visualizer .slider-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+}
+
+.math-visualizer .slider-group label {
+  font-weight: 600;
+  min-width: 20px;
+}
+
+.math-visualizer .slider-group input[type="range"] {
+  width: 80px;
+  accent-color: #42a5f5;
+}
+
+.math-visualizer .slider-group .value {
+  min-width: 30px;
+  text-align: right;
+  color: #fff;
+  font-weight: 700;
+}
+
+.math-visualizer .step-info {
+  padding: 12px 20px;
+  text-align: center;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.math-visualizer .step-description {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4fc3f7;
+  line-height: 1.4;
+}
+
+.math-visualizer .info-panel {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.math-visualizer .stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.math-visualizer .stat-item {
+  text-align: center;
+}
+
+.math-visualizer .stat-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  display: block;
+  line-height: 1;
+  font-family: "Courier New", monospace;
+}
+
+.math-visualizer .stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  display: block;
+}
+
+.math-visualizer .btn-step {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
+  background: linear-gradient(135deg, #43a047, #66bb6a);
+}
+
+.math-visualizer .btn-step:hover:not(:disabled) {
+  background: linear-gradient(135deg, #388e3c, #4caf50);
+}
+
+.math-visualizer .btn-reset {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.math-visualizer .btn-reset:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.math-visualizer button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* RSA specific */
+.math-visualizer .rsa-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 16px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.math-visualizer .rsa-step {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s;
+}
+
+.math-visualizer .rsa-step.active {
+  border-color: #4fc3f7;
+  background: rgba(79, 195, 247, 0.08);
+}
+
+.math-visualizer .rsa-step.completed {
+  border-color: #69f0ae;
+  background: rgba(105, 240, 174, 0.05);
+}
+
+.math-visualizer .rsa-step h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+
+.math-visualizer .rsa-step .rsa-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  font-family: "Courier New", monospace;
+  word-break: break-all;
+}
+
+.math-visualizer .rsa-step .rsa-detail {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
+}
