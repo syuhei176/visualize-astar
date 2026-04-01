@@ -1,57 +1,72 @@
-import { useState } from "react";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import PathfindingVisualizer from "./visualizers/PathfindingVisualizer";
 import SortingVisualizer from "./visualizers/SortingVisualizer";
-import { Category } from "./types";
 import "./App.css";
 
-const CATEGORIES: Category[] = [
+const CATEGORIES = [
   {
     id: "pathfinding",
     name: "経路探索アルゴリズム",
-    component: PathfindingVisualizer,
   },
-  { id: "sorting", name: "ソートアルゴリズム", component: SortingVisualizer },
+  { id: "sorting", name: "ソートアルゴリズム" },
 ];
 
-function App() {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null,
-  );
-
-  if (!selectedCategory) {
-    return (
-      <div className="app">
-        <h1>アルゴリズム可視化ツール</h1>
-        <div className="category-grid">
-          {CATEGORIES.map((category) => (
-            <button
-              key={category.id}
-              className="category-card"
-              onClick={() => setSelectedCategory(category)}
-            >
-              <h2>{category.name}</h2>
-            </button>
-          ))}
-        </div>
+function Home() {
+  return (
+    <div className="app">
+      <h1>アルゴリズム可視化ツール</h1>
+      <div className="category-grid">
+        {CATEGORIES.map((category) => (
+          <Link
+            key={category.id}
+            className="category-card"
+            to={`/${category.id}`}
+          >
+            <h2>{category.name}</h2>
+          </Link>
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
+}
 
-  const VisualizerComponent = selectedCategory.component;
-
+function PathfindingPage() {
   return (
     <div className="app">
       <div className="header">
-        <button
-          className="back-button"
-          onClick={() => setSelectedCategory(null)}
-        >
+        <Link className="back-button" to="/">
           ← 戻る
-        </button>
-        <h1>{selectedCategory.name}</h1>
+        </Link>
+        <h1>経路探索アルゴリズム</h1>
       </div>
-      <VisualizerComponent />
+      <PathfindingVisualizer />
     </div>
+  );
+}
+
+function SortingPage() {
+  return (
+    <div className="app">
+      <div className="header">
+        <Link className="back-button" to="/">
+          ← 戻る
+        </Link>
+        <h1>ソートアルゴリズム</h1>
+      </div>
+      <SortingVisualizer />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/pathfinding" element={<Navigate to="/pathfinding/astar" replace />} />
+      <Route path="/pathfinding/:algorithm" element={<PathfindingPage />} />
+      <Route path="/sorting" element={<Navigate to="/sorting/bubble" replace />} />
+      <Route path="/sorting/:algorithm" element={<SortingPage />} />
+    </Routes>
   );
 }
 

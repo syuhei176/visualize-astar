@@ -54,7 +54,8 @@ export interface PathfindingAlgorithms {
 export type SortingAlgorithm = (
   array: number[],
   onSwap?: (array: number[], i: number, j: number) => Promise<void>,
-  onCompare?: (i: number, j: number) => Promise<void>
+  onCompare?: (i: number, j: number) => Promise<void>,
+  onSorted?: (indices: number[]) => void,
 ) => Promise<number[]>
 
 export interface SortingAlgorithmInfo {
@@ -64,11 +65,4 @@ export interface SortingAlgorithmInfo {
 
 export interface SortingAlgorithms {
   [key: string]: SortingAlgorithmInfo
-}
-
-// カテゴリ用の型定義
-export interface Category {
-  id: string
-  name: string
-  component: React.ComponentType
 }

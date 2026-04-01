@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Node, ALGORITHMS } from "../algorithms/pathfinding";
 import { Grid } from "../types";
 import "./PathfindingVisualizer.css";
@@ -7,10 +8,13 @@ const ROWS = 20;
 const COLS = 20;
 
 function PathfindingVisualizer() {
+  const { algorithm: algorithmParam } = useParams<{ algorithm: string }>();
+  const navigate = useNavigate();
+  const algorithm = algorithmParam && algorithmParam in ALGORITHMS ? algorithmParam : "astar";
+
   const [grid, setGrid] = useState<Grid>([]);
   const [startNode, setStartNode] = useState<Node | null>(null);
   const [endNode, setEndNode] = useState<Node | null>(null);
-  const [algorithm, setAlgorithm] = useState<string>("astar");
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [visitedCount, setVisitedCount] = useState<number>(0);
   const [pathLength, setPathLength] = useState<number>(0);
@@ -146,7 +150,7 @@ function PathfindingVisualizer() {
           アルゴリズム:
           <select
             value={algorithm}
-            onChange={(e) => setAlgorithm(e.target.value)}
+            onChange={(e) => navigate(`/pathfinding/${e.target.value}`)}
           >
             {Object.entries(ALGORITHMS).map(([key, { name }]) => (
               <option key={key} value={key}>

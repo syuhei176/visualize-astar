@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { SORTING_ALGORITHMS } from "../algorithms/sorting";
 import "./SortingVisualizer.css";
 
@@ -6,8 +7,11 @@ const ARRAY_SIZE = 50;
 const MAX_VALUE = 100;
 
 function SortingVisualizer() {
+  const { algorithm: algorithmParam } = useParams<{ algorithm: string }>();
+  const navigate = useNavigate();
+  const algorithm = algorithmParam && algorithmParam in SORTING_ALGORITHMS ? algorithmParam : "bubble";
+
   const [array, setArray] = useState<number[]>([]);
-  const [algorithm, setAlgorithm] = useState<string>("bubble");
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [speed, setSpeed] = useState<number>(50);
   const [comparisons, setComparisons] = useState<number>(0);
@@ -89,7 +93,7 @@ function SortingVisualizer() {
           アルゴリズム:
           <select
             value={algorithm}
-            onChange={(e) => setAlgorithm(e.target.value)}
+            onChange={(e) => navigate(`/sorting/${e.target.value}`)}
             disabled={isRunning}
           >
             {Object.entries(SORTING_ALGORITHMS).map(([key, { name }]) => (

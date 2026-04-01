@@ -5,6 +5,7 @@ export async function bubbleSort(
   array: number[],
   onSwap?: (array: number[], i: number, j: number) => Promise<void>,
   onCompare?: (i: number, j: number) => Promise<void>,
+  onSorted?: (indices: number[]) => void,
 ): Promise<number[]> {
   const arr = [...array];
   const n = arr.length;
@@ -18,7 +19,9 @@ export async function bubbleSort(
         if (onSwap) await onSwap(arr, j, j + 1);
       }
     }
+    if (onSorted) onSorted([n - 1 - i]);
   }
+  if (onSorted) onSorted([0]);
 
   return arr;
 }
