@@ -186,7 +186,7 @@ function PathfindingVisualizer() {
       <div className="controls-bar">
         <select
           value={algorithm}
-          onChange={(e) => navigate(`/pathfinding/${e.target.value}`)}
+          onChange={(e) => navigate(`/algorithm/pathfinding/${e.target.value}`)}
         >
           {Object.entries(ALGORITHMS).map(([key, { name }]) => (
             <option key={key} value={key}>

@@ -172,7 +172,7 @@ function SortingVisualizer() {
       <div className="controls-bar">
         <select
           value={algorithm}
-          onChange={(e) => navigate(`/sorting/${e.target.value}`)}
+          onChange={(e) => navigate(`/algorithm/sorting/${e.target.value}`)}
           disabled={isRunning}
         >
           {Object.entries(SORTING_ALGORITHMS).map(([key, { name }]) => (
