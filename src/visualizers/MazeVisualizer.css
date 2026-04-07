@@ -1,0 +1,211 @@
+.maze-visualizer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #0a0a0a;
+  position: relative;
+}
+
+.maze-visualizer .algo-title {
+  text-align: center;
+  padding: 56px 16px 8px;
+}
+
+.maze-visualizer .algo-title h2 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.maze-visualizer .algo-title .algo-subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+}
+
+.maze-visualizer .grid-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.maze-visualizer .maze-grid {
+  display: grid;
+  width: calc(100vw - 24px);
+  height: calc(100vw - 24px);
+  max-width: 500px;
+  max-height: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #111;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.maze-visualizer .maze-cell {
+  transition: background-color 0.15s;
+}
+
+.maze-visualizer .maze-cell.wall {
+  background-color: #263238;
+}
+
+.maze-visualizer .maze-cell.passage {
+  background-color: #1a1a1a;
+}
+
+.maze-visualizer .maze-cell.start {
+  background-color: #ff5252;
+  box-shadow: inset 0 0 4px rgba(255, 82, 82, 0.5);
+}
+
+.maze-visualizer .maze-cell.end {
+  background-color: #ffd740;
+  box-shadow: inset 0 0 4px rgba(255, 215, 64, 0.5);
+}
+
+.maze-visualizer .maze-cell.visited {
+  background-color: #1565c0;
+  animation: mazeVisitFade 0.3s;
+}
+
+.maze-visualizer .maze-cell.path {
+  background-color: #69f0ae;
+  animation: mazePathPop 0.3s;
+}
+
+.maze-visualizer .maze-cell.generating {
+  background-color: #7c4dff;
+  animation: mazeVisitFade 0.2s;
+}
+
+.maze-visualizer .bottom-info {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.maze-visualizer .stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.maze-visualizer .stat-item {
+  text-align: center;
+}
+
+.maze-visualizer .stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  display: block;
+  line-height: 1;
+}
+
+.maze-visualizer .stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  display: block;
+}
+
+.maze-visualizer .info-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.maze-visualizer .controls-bar {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.maze-visualizer .controls-bar select {
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px;
+}
+
+.maze-visualizer .controls-bar button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
+}
+
+.maze-visualizer .controls-bar .btn-generate {
+  background: linear-gradient(135deg, #7c4dff, #b388ff);
+}
+
+.maze-visualizer .controls-bar .btn-generate:hover:not(:disabled) {
+  background: linear-gradient(135deg, #651fff, #7c4dff);
+}
+
+.maze-visualizer .controls-bar .btn-solve {
+  background: linear-gradient(135deg, #43a047, #66bb6a);
+}
+
+.maze-visualizer .controls-bar .btn-solve:hover:not(:disabled) {
+  background: linear-gradient(135deg, #388e3c, #4caf50);
+}
+
+.maze-visualizer .controls-bar .btn-reset {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.maze-visualizer .controls-bar .btn-reset:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.maze-visualizer .controls-bar button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@keyframes mazeVisitFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mazePathPop {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
