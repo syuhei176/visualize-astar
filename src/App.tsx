@@ -5,12 +5,18 @@ import PythagoreanVisualizer from "./visualizers/PythagoreanVisualizer";
 import AdditionTheoremVisualizer from "./visualizers/AdditionTheoremVisualizer";
 import RsaVisualizer from "./visualizers/RsaVisualizer";
 import AbcConjectureVisualizer from "./visualizers/AbcConjectureVisualizer";
+import CircuitVisualizer from "./visualizers/CircuitVisualizer";
 import "./App.css";
 
 const CATEGORIES = [
   { id: "pathfinding", name: "経路探索アルゴリズム" },
   { id: "sorting", name: "ソートアルゴリズム" },
   { id: "math", name: "数学の可視化" },
+  { id: "science", name: "理科の可視化" },
+];
+
+const SCIENCE_TOPICS = [
+  { id: "circuit", name: "電圧・電流・抵抗" },
 ];
 
 const MATH_TOPICS = [
@@ -89,6 +95,43 @@ function SortingPage() {
   );
 }
 
+function ScienceHome() {
+  return (
+    <div className="app app-home">
+      <div className="header">
+        <Link className="back-button" to="/">
+          ← 戻る
+        </Link>
+      </div>
+      <h1>理科の可視化</h1>
+      <div className="category-grid">
+        {SCIENCE_TOPICS.map((topic) => (
+          <Link
+            key={topic.id}
+            className="category-card"
+            to={`/science/${topic.id}`}
+          >
+            <h2>{topic.name}</h2>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SciencePage({ component: Component }: { component: React.ComponentType }) {
+  return (
+    <div className="app app-visualizer">
+      <div className="header">
+        <Link className="back-button" to="/science">
+          ← 戻る
+        </Link>
+      </div>
+      <Component />
+    </div>
+  );
+}
+
 function MathPage({ component: Component }: { component: React.ComponentType }) {
   return (
     <div className="app app-visualizer">
@@ -115,6 +158,8 @@ function App() {
       <Route path="/math/addition-theorem" element={<MathPage component={AdditionTheoremVisualizer} />} />
       <Route path="/math/rsa" element={<MathPage component={RsaVisualizer} />} />
       <Route path="/math/abc-conjecture" element={<MathPage component={AbcConjectureVisualizer} />} />
+      <Route path="/science" element={<ScienceHome />} />
+      <Route path="/science/circuit" element={<SciencePage component={CircuitVisualizer} />} />
     </Routes>
   );
 }
